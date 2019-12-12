@@ -13,7 +13,7 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-  title: '大闸蟹管理系统',
+  title: '大闸蟹',
   showSettings: true,
   showTagsView: true,
   showI18N: false,

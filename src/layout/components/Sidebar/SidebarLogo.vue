@@ -42,7 +42,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class extends Vue {
   @Prop({ required: true }) private collapse!: boolean
 
-  private title = '大闸蟹管理系统'
+  private title = '大闸蟹'
 }
 </script>
 

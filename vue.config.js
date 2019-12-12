@@ -5,7 +5,7 @@ const path = require('path')
 // For example, on Mac: sudo npm run / sudo yarn
 const devServerPort = 8080 // TODO: get this variable from setting.ts
 const mockServerPort = 8081 // TODO: get this variable from setting.ts
-const name = '大闸蟹管理系统'
+const name = '大闸蟹'
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/vue-typescript-admin-template/' : '/', // TODO: Remember to change this to fit your need
