@@ -10,20 +10,17 @@
                    :value="status.value"
         />
       </el-select>
-      <el-button type="primary"
-                 @click="getCards()"
-      >
-        查询
-      </el-button>
+      <el-button type="primary" @click="getCards()">查询</el-button>
+      <el-button type="success" @click="markUnfrozen()">解冻</el-button>
+      <el-button type="danger" @click="markFrozen()">冻结</el-button>
+      <el-button type="warning" @click="sfOrder()">发货</el-button>
+      <el-button type="primary" @click="printSf()">打印</el-button>
     </div>
-    <el-table v-loading="listLoading"
-              :data="cards"
-              border
-              fit
-              stripe
-              highlight-current-row
-              style="width: 100%"
+    <el-table v-loading="listLoading" :data="cards" border fit stripe
+              highlight-current-row style="width: 100%"
+              @selection-change="handleSelectionChange"
     >
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column width="80" label="卡号" prop="cardNumber"></el-table-column>
       <el-table-column width="120" label="购卡人" prop="buyer"></el-table-column>
       <el-table-column width="100" label="购卡时间">
@@ -92,6 +89,7 @@ export default class extends Vue {
   page = 1;
   size = 10;
   total = 1;
+  multipleSelection = [];
 
   async getCards() {
     this.listLoading = true
@@ -106,6 +104,26 @@ export default class extends Vue {
       return ''
     }
     return card.deliverInfo.dProvince + card.deliverInfo.dCity + card.deliverInfo.dCounty + card.deliverInfo.dAddress
+  }
+
+  handleSelectionChange(val: any) {
+    this.multipleSelection = val
+  }
+
+  markUnfrozen() {
+
+  }
+
+  markFrozen() {
+
+  }
+
+  sfOrder() {
+
+  }
+
+  printSf() {
+
   }
 }
 </script>
