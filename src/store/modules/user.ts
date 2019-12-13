@@ -58,9 +58,9 @@ class User extends VuexModule implements IUserState {
   public async Login(userInfo: { username: string, password: string}) {
     let { username, password } = userInfo
     username = username.trim()
-    const { data } = await login({ username, password })
-    setToken(data.accessToken)
-    this.SET_TOKEN(data.accessToken)
+    const data: any = await login({ username, password })
+    setToken(data.token)
+    this.SET_TOKEN(data.token)
   }
 
   @Action
@@ -72,23 +72,11 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async GetUserInfo() {
-    if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
-    }
-    const { data } = await getUserInfo({ /* Your params here */ })
-    if (!data) {
-      throw Error('Verification failed, please Login again.')
-    }
-    const { roles, name, avatar, introduction, email } = data.user
-    // roles must be a non-empty array
-    if (!roles || roles.length <= 0) {
-      throw Error('GetUserInfo: roles must be a non-null array!')
-    }
-    this.SET_ROLES(roles)
-    this.SET_NAME(name)
-    this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
-    this.SET_EMAIL(email)
+    this.SET_ROLES(['admin'])
+    this.SET_NAME('admin')
+    this.SET_AVATAR('https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+    this.SET_INTRODUCTION('administrator')
+    this.SET_EMAIL('admin@test.com')
   }
 
   @Action

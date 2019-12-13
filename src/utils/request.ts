@@ -13,6 +13,7 @@ service.interceptors.request.use(
     // Add X-Access-Token header to every request, you can add other custom headers here
     if (UserModule.token) {
       config.headers['X-Access-Token'] = UserModule.token
+      config.headers['token'] = UserModule.token
     }
     return config
   },
@@ -32,14 +33,20 @@ service.interceptors.response.use(
     // code == 50004: invalid user (user not exist)
     // code == 50005: username or password is incorrect
     // You can change this part for your own usage.
+    const status = response.status
     const res = response.data
-    if (res.code !== 20000) {
+    if (status === 200 || status === 201 || status === 202 || status === 204) {
+      if (status === 204) {
+        return null
+      }
+      return response.data
+    } else {
       Message({
         message: res.message || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+      if (status === 401 || status === 403) {
         MessageBox.confirm(
           'You have been logged out, try to login again.',
           'Log out',
@@ -54,8 +61,6 @@ service.interceptors.response.use(
         })
       }
       return Promise.reject(new Error(res.message || 'Error'))
-    } else {
-      return response.data
     }
   },
   (error) => {
