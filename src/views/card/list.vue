@@ -10,7 +10,7 @@
                    :value="status.value"
         />
       </el-select>
-      <el-button type="primary" @click="getCards()">查询</el-button>
+      <el-button type="primary" @click="page=1, getCards()">查询</el-button>
       <el-button type="success" @click="markUnfrozen()">解冻</el-button>
       <el-button type="danger" @click="markFrozen()">冻结</el-button>
       <el-button type="warning" @click="sfOrder()">发货</el-button>
@@ -111,7 +111,7 @@ export default class extends Vue {
   }
 
   markUnfrozen() {
-
+    const cardNumbers = this.multipleSelection.map((item: any) => item.id)
   }
 
   markFrozen() {
