@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export const getCards = (params: any) =>
   request({
-    url: '',
+    url: '/cards',
     method: 'get',
     params
   })

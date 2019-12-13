@@ -4,9 +4,6 @@ import Router, { RouteConfig } from 'vue-router'
 /* Layout */
 import Layout from '@/layout/index.vue'
 
-/* Router modules */
-import nestedRouter from './modules/nested'
-
 Vue.use(Router)
 
 /*
@@ -96,15 +93,10 @@ export const constantRoutes: RouteConfig[] = [
  */
 export const asyncRoutes: RouteConfig[] = [
   /** when your routing map is too long, you can split it into small modules **/
-  nestedRouter,
   {
     path: '/card',
     component: Layout,
     redirect: '/card/list',
-    meta: {
-      title: 'card',
-      icon: 'example'
-    },
     children: [
       {
         path: 'list',
@@ -112,20 +104,7 @@ export const asyncRoutes: RouteConfig[] = [
         name: 'CardList',
         meta: {
           title: 'cardList',
-          icon: 'list'
-        }
-      }
-    ]
-  },
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/Armour/vue-typescript-admin-template',
-        meta: {
-          title: 'externalLink',
-          icon: 'link'
+          icon: 'table'
         }
       }
     ]
