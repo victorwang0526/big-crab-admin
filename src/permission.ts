@@ -10,7 +10,7 @@ import settings from './settings'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/auth-redirect']
+const whiteList = ['/login', '/auth-redirect', '/404', '/', '/deliver']
 
 const getPageTitle = (key: string) => {
   const hasKey = i18n.te(`route.${key}`)
@@ -29,7 +29,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
   if (UserModule.token) {
     if (to.path === '/login') {
       // If is logged in, redirect to the home page
-      next({ path: '/' })
+      next({ path: '/dashboard/dashboard' })
       NProgress.done()
     } else {
       // Check whether the user has obtained his permission roles

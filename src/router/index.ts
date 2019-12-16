@@ -52,8 +52,17 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/',
+    component: () => import('@/views/home/home.vue'),
+    meta: { hidden: true }
+  },
+  {
+    path: '/deliver',
+    component: () => import('@/views/home/deliver.vue'),
+    meta: { hidden: true }
+  },
+  {
+    path: '/dashboard',
     component: Layout,
-    redirect: '/dashboard',
     children: [
       {
         path: 'dashboard',

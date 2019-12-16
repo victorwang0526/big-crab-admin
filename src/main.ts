@@ -15,6 +15,10 @@ import '@/icons/components'
 import '@/permission'
 // import * as directives from '@/directives'
 import * as filters from '@/filters'
+import Vant from 'vant'
+import 'vant/lib/index.css'
+
+Vue.use(Vant)
 
 Vue.use(ElementUI, {
   i18n: (key: string, value: string) => i18n.t(key, value)

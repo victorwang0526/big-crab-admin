@@ -58,13 +58,6 @@
       >
         登录
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span> username: admin </span>
-          <span> password: any </span>
-        </div>
-      </div>
     </el-form>
   </div>
 </template>
@@ -145,7 +138,7 @@ export default class extends Vue {
         this.loading = true
         await UserModule.Login(this.loginForm)
         this.$router.push({
-          path: this.redirect || '/',
+          path: this.redirect || '/dashboard/dashboard',
           query: this.otherQuery
         })
         // Just to simulate the time of the request
