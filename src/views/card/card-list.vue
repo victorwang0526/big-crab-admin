@@ -32,7 +32,9 @@
       <el-table-column width="160" label="备注" prop="remark"></el-table-column>
       <el-table-column width="80" label="状态" prop="status">
         <template slot-scope="{row}">
-          <el-tag :type="row.status | cardStatusFilter">{{row.status | cardStatusNameFilter}}</el-tag>
+          <el-tag :type="row.status | cardStatusFilter">
+            {{row.status | cardStatusNameFilter}}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column width="80" label="联系人">
@@ -52,7 +54,7 @@
       </el-table-column>
       <el-table-column width="100" label="发货时间">
         <template slot-scope="{row}">
-          <span>{{(row.deliverInfo ? row.deliverInfo.deliverAt : '') | parseTime('{y}-{m}-{d}')}}</span>
+          <span>{{(row.deliverInfo ? row.deliverInfo.deliverAt : undefined) | parseTime('{y}-{m}-{d}')}}</span>
         </template>
       </el-table-column>
       <el-table-column width="140" label="快递单号">
@@ -75,7 +77,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { getCards } from '@/api/cards'
+import { getCards, markFrozen, markUnfrozen } from '@/api/cards'
 import Pagination from '@/components/Pagination/index.vue'
 
 @Component({
@@ -101,7 +103,11 @@ export default class extends Vue {
   page = 1;
   size = 10;
   total = 1;
-  multipleSelection = [];
+  selectedCardNumbers: Array<string> = [];
+
+  mounted() {
+    this.getCards()
+  }
 
   async getCards() {
     this.listLoading = true
@@ -118,16 +124,25 @@ export default class extends Vue {
     return card.deliverInfo.dProvince + card.deliverInfo.dCity + card.deliverInfo.dCounty + card.deliverInfo.dAddress
   }
 
-  handleSelectionChange(val: any) {
-    this.multipleSelection = val
+  handleSelectionChange(val: Array<any>) {
+    this.selectedCardNumbers = []
+    val.forEach((item: any) => {
+      this.selectedCardNumbers.push(item.cardNumber)
+    })
   }
 
   markUnfrozen() {
-    const cardNumbers = this.multipleSelection.map((item: any) => item.id)
+    markUnfrozen({ cardNumbers: this.selectedCardNumbers }).then(() => {
+      this.$message({ message: '解冻成功', type: 'success' })
+      this.getCards()
+    })
   }
 
   markFrozen() {
-
+    markFrozen({ cardNumbers: this.selectedCardNumbers }).then(() => {
+      this.$message({ message: '冻结成功', type: 'success' })
+      this.getCards()
+    })
   }
 
   sfOrder() {

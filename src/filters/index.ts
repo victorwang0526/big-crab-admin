@@ -15,10 +15,10 @@ export const cardStatusFilter = (status: string) => {
   const statusMap: { [key: string]: string } = {
     UNUSED: '',
     REDEEMED: 'success',
-    DELIVERED: 'warning',
-    RECEIVED: 'info',
-    FROZEN: '',
-    PHONED: ''
+    DELIVERED: 'info',
+    RECEIVED: 'warning',
+    FROZEN: 'danger',
+    PHONED: 'success'
   }
   return statusMap[status]
 }

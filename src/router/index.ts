@@ -104,7 +104,7 @@ export const asyncRoutes: RouteConfig[] = [
     children: [
       {
         path: 'list',
-        component: () => import(/* webpackChunkName: "example-list" */ '@/views/card/list.vue'),
+        component: () => import(/* webpackChunkName: "example-list" */ '@/views/card/card-list.vue'),
         name: 'CardList',
         meta: {
           title: 'cardList',
