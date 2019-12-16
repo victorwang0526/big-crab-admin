@@ -77,7 +77,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { getCards, markFrozen, markUnfrozen } from '@/api/cards'
+import { getCards, markFrozen, markUnfrozen, sfOrder } from '@/api/cards'
 import Pagination from '@/components/Pagination/index.vue'
 
 @Component({
@@ -146,7 +146,10 @@ export default class extends Vue {
   }
 
   sfOrder() {
-
+    sfOrder({ cardNumbers: this.selectedCardNumbers }).then(() => {
+      this.$message({ message: '已派单给顺丰，运单号已更新', type: 'success' })
+      this.getCards()
+    })
   }
 
   printSf() {

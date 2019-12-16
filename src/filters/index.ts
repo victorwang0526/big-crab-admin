@@ -15,8 +15,8 @@ export const cardStatusFilter = (status: string) => {
   const statusMap: { [key: string]: string } = {
     UNUSED: '',
     REDEEMED: 'success',
-    DELIVERED: 'info',
-    RECEIVED: 'warning',
+    DELIVERED: 'warning',
+    RECEIVED: 'info',
     FROZEN: 'danger',
     PHONED: 'success'
   }
