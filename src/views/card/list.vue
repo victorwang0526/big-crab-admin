@@ -35,8 +35,16 @@
           <el-tag :type="row.status | cardStatusFilter">{{row.status | cardStatusNameFilter}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column width="80" label="联系人" prop="deliverInfo.dContact"></el-table-column>
-      <el-table-column width="110" label="电话" prop="deliverInfo.dTel"></el-table-column>
+      <el-table-column width="80" label="联系人">
+        <template slot-scope="{row}">
+          <span>{{row.deliverInfo ? row.deliverInfo.dContact : ''}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="110" label="电话">
+        <template slot-scope="{row}">
+          <span>{{row.deliverInfo ? row.deliverInfo.dTel : ''}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="地址">
         <template slot-scope="scope">
           <span>{{getAddress(scope.row)}}</span>
@@ -44,10 +52,14 @@
       </el-table-column>
       <el-table-column width="100" label="发货时间">
         <template slot-scope="{row}">
-          <span>{{row.deliverInfo.deliverAt | parseTime('{y}-{m}-{d}')}}</span>
+          <span>{{(row.deliverInfo ? row.deliverInfo.deliverAt : '') | parseTime('{y}-{m}-{d}')}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="140" label="快递单号" prop="deliverInfo.mailno"></el-table-column>
+      <el-table-column width="140" label="快递单号">
+        <template slot-scope="{row}">
+          <span>{{row.deliverInfo ? row.deliverInfo.mailno : ''}}</span>
+        </template>
+      </el-table-column>
     </el-table>
 
     <pagination

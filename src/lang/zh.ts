@@ -1,6 +1,8 @@
 export default {
   route: {
+    cardManagement: '卡管理',
     card: '卡',
+    cardImport: '导入',
     cardList: '卡管理',
     dashboard: '首页',
     Nested: '内联',

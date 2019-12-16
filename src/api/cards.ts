@@ -6,6 +6,16 @@ export const getCards = (params: any) =>
     method: 'get',
     params
   })
+
+export const importCards = (data: any) =>
+  request({
+    url: '/cards/import',
+    method: 'post',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    data
+  })
 //
 // export const markPhone = (params: any) =>
 //   request({

@@ -97,6 +97,10 @@ export const asyncRoutes: RouteConfig[] = [
     path: '/card',
     component: Layout,
     redirect: '/card/list',
+    meta: {
+      title: 'cardManagement',
+      icon: 'example'
+    },
     children: [
       {
         path: 'list',
@@ -105,6 +109,15 @@ export const asyncRoutes: RouteConfig[] = [
         meta: {
           title: 'cardList',
           icon: 'table'
+        }
+      },
+      {
+        path: 'import',
+        component: () => import('@/views/card/card-import.vue'),
+        name: 'CardImport',
+        meta: {
+          title: 'cardImport',
+          icon: 'link'
         }
       }
     ]
