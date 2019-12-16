@@ -72,12 +72,23 @@
       :layout="'total, sizes, prev, pager, next'"
       @pagination="getCards"
     />
+
+    <el-dialog title="打印" :visible="printVisiable" width="1140px"
+                @close="printVisiable=false">
+      <div id="imgPrint">
+        <img :src="sfImage" style="margin: 0 auto; display: block;">
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="printVisiable=false">取消</el-button>
+        <el-button @click="print()">打印</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { getCards, markFrozen, markUnfrozen, sfOrder } from '@/api/cards'
+import { getCards, markFrozen, markUnfrozen, sfOrder, sfPrint } from '@/api/cards'
 import Pagination from '@/components/Pagination/index.vue'
 
 @Component({
@@ -104,6 +115,8 @@ export default class extends Vue {
   size = 10;
   total = 1;
   selectedCardNumbers: Array<string> = [];
+  sfImage: string = '';
+  printVisiable: boolean = false;
 
   mounted() {
     this.getCards()
@@ -132,6 +145,10 @@ export default class extends Vue {
   }
 
   markUnfrozen() {
+    if (!this.selectedCardNumbers || this.selectedCardNumbers.length === 0) {
+      this.$message({ message: '请选择一个卡号.', type: 'error' })
+      return
+    }
     markUnfrozen({ cardNumbers: this.selectedCardNumbers }).then(() => {
       this.$message({ message: '解冻成功', type: 'success' })
       this.getCards()
@@ -139,6 +156,10 @@ export default class extends Vue {
   }
 
   markFrozen() {
+    if (!this.selectedCardNumbers || this.selectedCardNumbers.length === 0) {
+      this.$message({ message: '请选择一个卡号.', type: 'error' })
+      return
+    }
     markFrozen({ cardNumbers: this.selectedCardNumbers }).then(() => {
       this.$message({ message: '冻结成功', type: 'success' })
       this.getCards()
@@ -146,14 +167,57 @@ export default class extends Vue {
   }
 
   sfOrder() {
+    if (!this.selectedCardNumbers || this.selectedCardNumbers.length === 0) {
+      this.$message({ message: '请选择一个卡号.', type: 'error' })
+      return
+    }
     sfOrder({ cardNumbers: this.selectedCardNumbers }).then(() => {
       this.$message({ message: '已派单给顺丰，运单号已更新', type: 'success' })
       this.getCards()
     })
   }
 
-  printSf() {
+  async printSf() {
+    if (!this.selectedCardNumbers || this.selectedCardNumbers.length !== 1) {
+      this.$message({ message: '请仅选择一个卡号.', type: 'error' })
+      return
+    }
+    const data: any = await sfPrint(this.selectedCardNumbers[0])
+    this.sfImage = 'data:image/png;base64,' + data.imageStr
+    this.printVisiable = true
+  }
 
+  print() {
+    const printContent = document.getElementById('imgPrint')
+    const WindowPrt = window.open('', '', 'left=0,top=0,toolbar=0,scrollbars=0,status=0')
+    if (!WindowPrt) {
+      return
+    }
+    WindowPrt.document.write(`
+      <style>
+        @media print {
+          @page {
+            margin:0;
+          }
+          html, body {
+            height:100vh;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+          }
+        }
+        .print:last-child {
+          page-break-after: auto;
+          width: 100%;
+          margin: 0 auto;
+          display: block;
+        }</style>
+        <img class="print" src="${this.sfImage}">`)
+    WindowPrt.document.close()
+    WindowPrt.focus()
+    WindowPrt.print()
+    WindowPrt.close()
+    this.printVisiable = false
   }
 }
 </script>
