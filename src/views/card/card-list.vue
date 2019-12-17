@@ -21,7 +21,7 @@
               @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column width="80" label="卡号" prop="cardNumber"></el-table-column>
+      <el-table-column width="100" label="卡号" prop="cardNumber"></el-table-column>
       <el-table-column width="120" label="购卡人" prop="buyer"></el-table-column>
       <el-table-column width="100" label="购卡时间">
         <template slot-scope="{row}">
