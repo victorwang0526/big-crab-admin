@@ -61,6 +61,11 @@ export const constantRoutes: RouteConfig[] = [
     meta: { hidden: true }
   },
   {
+    path: '/deliver-info',
+    component: () => import('@/views/home/deliver-info.vue'),
+    meta: { hidden: true }
+  },
+  {
     path: '/dashboard',
     component: Layout,
     children: [

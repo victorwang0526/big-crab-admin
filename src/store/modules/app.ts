@@ -14,7 +14,8 @@ export interface IAppState {
     opened: boolean
     withoutAnimation: boolean
   }
-  language: string
+  language: string,
+  isDeliver: boolean
 }
 
 @Module({ dynamic: true, store, name: 'app' })
@@ -25,6 +26,7 @@ class App extends VuexModule implements IAppState {
   }
   public device = DeviceType.Desktop
   public language = getLocale()
+  public isDeliver = false
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
@@ -53,6 +55,11 @@ class App extends VuexModule implements IAppState {
   private SET_LANGUAGE(language: string) {
     this.language = language
     setLanguage(this.language)
+  }
+
+  @Mutation
+  public SET_IS_DELIVER(isDeliver: boolean) {
+    this.isDeliver = isDeliver
   }
 
   @Action

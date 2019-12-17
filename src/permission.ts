@@ -7,10 +7,11 @@ import { UserModule } from '@/store/modules/user'
 import { PermissionModule } from '@/store/modules/permission'
 import i18n from '@/lang' // Internationalization
 import settings from './settings'
+import { AppModule } from '@/store/modules/app'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/auth-redirect', '/404', '/', '/deliver']
+const whiteList = ['/login', '/auth-redirect', '/404', '/', '/deliver', '/deliver-info']
 
 const getPageTitle = (key: string) => {
   const hasKey = i18n.te(`route.${key}`)
@@ -67,6 +68,8 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       NProgress.done()
     }
   }
+  // set is deliver or admin
+  AppModule.SET_IS_DELIVER(whiteList.indexOf(to.path) !== -1)
 })
 
 router.afterEach((to: Route) => {

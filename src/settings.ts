@@ -15,6 +15,8 @@ interface ISettings {
   end: string
   startDate: moment.Moment
   endDate: moment.Moment
+  tips: string
+  deliverTips: string
 }
 
 const format = 'YYYY-MM-DD'
@@ -23,6 +25,13 @@ const end = '2020-12-16'
 
 const startDate = moment(start, format)
 const endDate = moment(end, format)
+
+let tips = `温馨提醒：为保证品质，大闸蟹预约截止至${moment(endDate).format('YYYY年MM月DD日')}，未兑换的明年还可继续兑换。`
+// 当前未到开始时间
+if (moment().diff(startDate) < 0) {
+  tips = `温馨提醒：为保证品质，大闸蟹开放预约时间为${moment(startDate).format('YYYY年MM月DD日')}，敬请期待。`
+}
+const deliverTips = '预约发货时间为两日后，所有大闸蟹均通过顺丰快递冷藏运输。江浙沪皖及24小时内可到，其他地区到货时间为24至48小时不等。'
 
 // You can customize below settings :)
 const settings: ISettings = {
@@ -39,7 +48,9 @@ const settings: ISettings = {
   start,
   end,
   startDate,
-  endDate
+  endDate,
+  tips,
+  deliverTips
 }
 
 export default settings

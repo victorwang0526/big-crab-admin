@@ -38,13 +38,6 @@ export const markFrozen = (data: any) =>
     data
   })
 
-export const validateCard = (cardNumber: string, data: any) =>
-  request({
-    url: `cards/${cardNumber}/validate`,
-    method: 'put',
-    data
-  })
-
 export const redeemCard = (cardNumber: string, data: any) =>
   request({
     url: `cards/${cardNumber}/redeem`,
@@ -63,4 +56,11 @@ export const sfPrint = (cardNumber: string) =>
   request({
     url: `cards/${cardNumber}/sfOrderPrint`,
     method: 'post'
+  })
+
+export const validateCard = (cardNumber: string, password: string) =>
+  request({
+    url: `cards/${cardNumber}/validate`,
+    method: 'put',
+    data: { password }
   })

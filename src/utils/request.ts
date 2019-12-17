@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
+import { AppModule } from '@/store/modules/app'
+
+const noErrorMsgList = ['/', '/deliver', '/deliver-info']
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -40,11 +43,13 @@ service.interceptors.response.use(
       }
       return response.data
     } else {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      if (!AppModule.isDeliver) {
+        Message({
+          message: res.message || 'Error',
+          type: 'error',
+          duration: 5 * 1000
+        })
+      }
       if (status === 401 || status === 403) {
         MessageBox.confirm(
           'You have been logged out, try to login again.',
@@ -59,16 +64,19 @@ service.interceptors.response.use(
           location.reload() // To prevent bugs from vue-router
         })
       }
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(new Error(res.errorMessage || 'Error'))
     }
   },
   (error) => {
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
-    return Promise.reject(error)
+    const msg = error.response.data.errorMessage;
+    if (!AppModule.isDeliver) {
+      Message({
+        message: msg,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }
+    return Promise.reject(msg)
   }
 )
 

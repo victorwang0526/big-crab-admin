@@ -5,10 +5,10 @@
       <span style="width: 80%; font-weight: bold;">{{tips}}</span>
     </div>
     <div class="btn">
-      <van-button type="primary" @click="openDeliver()">预约发货</van-button>
+      <van-button type="primary" @click="openDeliver()" style="width: 50%;">预约发货</van-button>
     </div>
     <div class="btn">
-      <van-button type="info" @click="openSf()">物流查询</van-button>
+      <van-button type="info" @click="openSf()" style="width: 50%;">物流查询</van-button>
     </div>
     <div>
       <span>{{deliverTips}}</span>
@@ -25,14 +25,9 @@ import defaultSettings from '@/settings'
   name: 'home'
 })
 export default class extends Vue {
-  tips: string = `温馨提醒：为保证品质，大闸蟹预约截止至${moment(defaultSettings.endDate).format('YYYY年MM月DD日')}，未兑换的明年还可继续兑换。`;
-  deliverTips: string = '预约发货时间为两日后，所有大闸蟹均通过顺丰快递冷藏运输。江浙沪皖及24小时内可到，其他地区到货时间为24至48小时不等。';
-  mounted() {
-    // 当前未到开始时间
-    if (moment().diff(defaultSettings.startDate) < 0) {
-      this.tips = `温馨提醒：为保证品质，大闸蟹开放预约时间为${moment(defaultSettings.startDate).format('YYYY年MM月DD日')}，敬请期待。`
-    }
-  }
+  tips: string = defaultSettings.tips
+  deliverTips: string = defaultSettings.deliverTips;
+
   openDeliver() {
     if (moment().diff(defaultSettings.startDate) < 0 || moment().diff(defaultSettings.endDate) > 0) {
       this.$dialog.confirm({
