@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 interface ISettings {
   title: string // Overrides the default title
   showSettings: boolean // Controls settings panel display
@@ -8,8 +10,19 @@ interface ISettings {
   errorLog: string[] // The env to enable the errorlog component, default 'production' only
   sidebarTextTheme: boolean // If true, will change active text color for sidebar based on theme
   devServerPort: number // Port number for webpack-dev-server
-  mockServerPort: number // Port number for mock server
+  mockServerPort: number // Port number for mock server,
+  start: string
+  end: string
+  startDate: moment.Moment
+  endDate: moment.Moment
 }
+
+const format = 'YYYY-MM-DD'
+const start = '2019-10-01'
+const end = '2020-12-16'
+
+const startDate = moment(start, format)
+const endDate = moment(end, format)
 
 // You can customize below settings :)
 const settings: ISettings = {
@@ -22,7 +35,11 @@ const settings: ISettings = {
   errorLog: ['production'],
   sidebarTextTheme: true,
   devServerPort: 8080,
-  mockServerPort: 8081
+  mockServerPort: 8081,
+  start,
+  end,
+  startDate,
+  endDate
 }
 
 export default settings
