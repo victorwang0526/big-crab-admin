@@ -43,7 +43,7 @@ service.interceptors.response.use(
       }
       return response.data
     } else {
-      if (!AppModule.isDeliver) {
+      if (AppModule.showErrorMsg) {
         Message({
           message: res.message || 'Error',
           type: 'error',
@@ -68,8 +68,8 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    const msg = error.response.data.errorMessage;
-    if (!AppModule.isDeliver) {
+    const msg = error.response.data.errorMessage
+    if (AppModule.showErrorMsg) {
       Message({
         message: msg,
         type: 'error',

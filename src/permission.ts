@@ -11,7 +11,7 @@ import { AppModule } from '@/store/modules/app'
 
 NProgress.configure({ showSpinner: false })
 
-const whiteList = ['/login', '/auth-redirect', '/404', '/', '/deliver', '/deliver-info']
+const whiteList = ['/login', '/auth-redirect', '/404', '/', '/deliver', '/deliver-info', '/finish-deliver']
 
 const getPageTitle = (key: string) => {
   const hasKey = i18n.te(`route.${key}`)
@@ -59,7 +59,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
     }
   } else {
     // Has no token
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (to.meta.needPerms === false) {
       // In the free login whitelist, go directly
       next()
     } else {
@@ -69,7 +69,7 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
     }
   }
   // set is deliver or admin
-  AppModule.SET_IS_DELIVER(whiteList.indexOf(to.path) !== -1)
+  AppModule.SET_SHOW_ERROR_MSG(!to.meta.showErrorMsg === false)
 })
 
 router.afterEach((to: Route) => {

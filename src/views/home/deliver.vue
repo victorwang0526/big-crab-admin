@@ -39,7 +39,7 @@ export default class extends Vue {
   validateCard() {
     console.log('validate card')
     validateCard(this.cardNumber, this.psd).then(() => {
-      this.$router.push('/deliver-info')
+      this.$router.push({ path: '/deliver-info', query: { cardNumber: this.cardNumber, password: this.psd } })
     }).catch((msg: any) => {
       this.$dialog.alert({
         message: msg

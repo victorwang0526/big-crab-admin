@@ -15,7 +15,7 @@ export interface IAppState {
     withoutAnimation: boolean
   }
   language: string,
-  isDeliver: boolean
+  showErrorMsg: boolean
 }
 
 @Module({ dynamic: true, store, name: 'app' })
@@ -26,7 +26,7 @@ class App extends VuexModule implements IAppState {
   }
   public device = DeviceType.Desktop
   public language = getLocale()
-  public isDeliver = false
+  public showErrorMsg = true
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
@@ -58,8 +58,8 @@ class App extends VuexModule implements IAppState {
   }
 
   @Mutation
-  public SET_IS_DELIVER(isDeliver: boolean) {
-    this.isDeliver = isDeliver
+  public SET_SHOW_ERROR_MSG(showErrorMsg: boolean) {
+    this.showErrorMsg = showErrorMsg
   }
 
   @Action

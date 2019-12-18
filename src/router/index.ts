@@ -38,32 +38,37 @@ export const constantRoutes: RouteConfig[] = [
   {
     path: '/login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, needPerms: false }
   },
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "404" */ '@/views/error-page/404.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, needPerms: false }
   },
   {
     path: '/401',
     component: () => import(/* webpackChunkName: "401" */ '@/views/error-page/401.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, needPerms: false }
   },
   {
     path: '/',
     component: () => import('@/views/home/home.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/deliver',
     component: () => import('@/views/home/deliver.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/deliver-info',
     component: () => import('@/views/home/deliver-info.vue'),
-    meta: { hidden: true }
+    meta: { hidden: true, showErrorMsg: false, needPerms: false }
+  },
+  {
+    path: '/finish-deliver',
+    component: () => import('@/views/home/finish-deliver.vue'),
+    meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/dashboard',
