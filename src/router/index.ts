@@ -62,11 +62,13 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/deliver-info',
+    name: 'deliver-info',
     component: () => import('@/views/home/deliver-info.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/finish-deliver',
+    name: 'finish-deliver',
     component: () => import('@/views/home/finish-deliver.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },

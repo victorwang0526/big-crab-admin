@@ -18,7 +18,7 @@
                  v-model.trim="req.dAddress"
                  rows="3" type="textarea" maxlength="100"></van-field>
     </van-cell-group>
-    <div class="btn">
+    <div class="divcenter">
       <van-button type="info" style="width: 50%;" @click="deliverConfirm">提交</van-button>
     </div>
     <van-popup position="bottom" v-model="showDatePicker">
@@ -51,7 +51,6 @@ import { redeemCard } from '@/api/cards'
   }
 })
 export default class extends Vue {
-  // '为保证口感，请尽量于收货当日食用完毕。未食用的大闸蟹可存放于冰箱冷藏室温度保持5度-10度盖上湿毛巾即可。';
   tips: string = defaultSettings.deliverTips
   areaList = area
   showPicker: boolean = false
@@ -121,9 +120,16 @@ export default class extends Vue {
       return
     }
 
+    const deliverAt = moment(this.req.deliverAt).format('YYYY年MM月DD日')
+    const contact = this.req.dContact
+    const tel = this.req.dTel
+    const pcc = this.req.dProvince + this.req.dCity + this.req.dCounty
+    const address = this.req.dAddress
+    const cardNumber = this.cardNumber
+
     this.$dialog.confirm({
       title: '确认信息',
-      message: `发货日期：${moment(this.req.deliverAt).format('YYYY年MM月DD日')}\n收件人：${this.req.dContact}\n电话：${this.req.dTel}\n省市区：${this.req.dProvince + this.req.dCity + this.req.dCounty}\n详细地址：${this.req.dAddress}`,
+      message: `发货日期：${deliverAt}\n收件人：${contact}\n电话：${tel}\n省市区：${pcc}\n详细地址：${address}`,
       confirmButtonText: '确认提交',
       cancelButtonText: '取消修改',
       showCancelButton: true,
@@ -132,7 +138,7 @@ export default class extends Vue {
       beforeClose: (action, done) => {
         if (action === 'confirm') {
           redeemCard(this.cardNumber, this.req).then(() => {
-            this.$router.push({ path: 'finish-deliver' })
+            this.$router.push({ name: 'finish-deliver', params: { cardNumber, deliverAt, contact, tel, pcc, address } })
           }).catch((msg) => {
             setTimeout(() => {
               this.alertMsg(msg)
@@ -156,7 +162,7 @@ export default class extends Vue {
 
 </script>
 <style scoped>
-  .btn {
+  .divcenter {
     width: 100%;
     text-align:center;
     padding: 1rem 0 1rem;
