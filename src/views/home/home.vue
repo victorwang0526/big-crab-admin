@@ -9,7 +9,11 @@
       <van-button type="primary" @click="openDeliver()" style="width: 50%;">预约发货</van-button>
     </div>
     <div class="btn">
-      <van-button type="info" @click="openSf()" style="width: 50%;">物流查询</van-button>
+      <a href="https://m.kuaidi100.com/all/sf.htm">
+        <van-button type="info" style="width: 50%;">
+          物流查询
+        </van-button>
+      </a>
     </div>
     <div>
       <span>{{deliverTips}}</span>
@@ -46,9 +50,6 @@ export default class extends Vue {
         this.$router.push('/deliver')
       })
     }
-  }
-  openSf() {
-    console.log('sf')
   }
 }
 </script>
