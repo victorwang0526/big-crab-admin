@@ -1,9 +1,13 @@
 <template>
   <div style="width: 100%;">
+    <customerService></customerService>
     <tip :tips="tips"></tip>
     <deliver-steps :active="2"></deliver-steps>
     <div class="divcenter">
-      <span>兑换成功</span>
+      <span style="color: red; font-size: 2rem; font-weight: bold;">兑换成功</span>
+    </div>
+    <div class="divcenter">
+      <span style="color: gray;">如信息有误，请尽快联系客服。</span>
     </div>
     <van-cell-group title="配送信息">
       <van-field label="卡号" readonly v-model="cardNumber"></van-field>
@@ -20,15 +24,17 @@
 </template>
 <script lang="ts">
 
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import tip from '@/components/tip.vue'
 import deliverSteps from '@/components/deliver-steps.vue'
+import customerService from '@/components/customer-service.vue'
 
 @Component({
   name: 'finish-deliver',
   components: {
     tip,
-    deliverSteps
+    deliverSteps,
+    customerService
   }
 })
 export default class extends Vue {

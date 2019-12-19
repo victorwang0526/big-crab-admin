@@ -57,6 +57,7 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/deliver',
+    name: 'deliver',
     component: () => import('@/views/home/deliver.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },

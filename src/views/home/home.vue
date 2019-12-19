@@ -1,5 +1,6 @@
 <template>
   <div style="width: 100%; height: 100%; background-color: #f9f1cd;">
+    <customerService></customerService>
     <img src="../../assets/home.jpg" style="width: 100%" alt="">
     <div class="btn">
       <span style="width: 80%; font-weight: bold;">{{tips}}</span>
@@ -20,9 +21,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import moment from 'moment'
 import defaultSettings from '@/settings'
+import customerService from '@/components/customer-service.vue'
 
 @Component({
-  name: 'home'
+  name: 'home',
+  components: {
+    customerService
+  }
 })
 export default class extends Vue {
   tips: string = defaultSettings.tips

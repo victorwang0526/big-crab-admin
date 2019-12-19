@@ -1,5 +1,6 @@
 <template>
   <div style="width: 100%">
+    <customerService></customerService>
     <tip :tips="tips"></tip>
     <deliverSteps :active="1"></deliverSteps>
     <van-cell-group title="详情">
@@ -42,12 +43,14 @@ import area from './area'
 import moment from 'moment'
 import defaultSettings from '@/settings'
 import { redeemCard } from '@/api/cards'
+import customerService from '@/components/customer-service.vue'
 
 @Component({
   name: 'deliver-info',
   components: {
     deliverSteps,
-    tip
+    tip,
+    customerService
   }
 })
 export default class extends Vue {
@@ -71,8 +74,8 @@ export default class extends Vue {
     password: ''
   }
   mounted() {
-    this.cardNumber = this.$route.query.cardNumber
-    this.password = this.$route.query.password
+    this.cardNumber = this.$route.params.cardNumber
+    this.password = this.$route.params.password
     this.req.password = this.password
   }
   get deliverAtStr() {

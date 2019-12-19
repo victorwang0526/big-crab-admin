@@ -1,5 +1,6 @@
 <template>
   <div style="width: 100%;">
+    <customerService></customerService>
     <tips :tips="tips"></tips>
     <deliverSteps :active="0"></deliverSteps>
     <van-cell-group>
@@ -7,7 +8,9 @@
       <van-field label="密码" placeholder="请输入密码" v-model="psd" class="van-hairline--bottom"></van-field>
     </van-cell-group>
     <div class="btn">
-      <van-button type="info" style="width: 50%;" @click="validateCard()"
+      <van-button type="info" style="width: 50%;"
+                  :loading="validateLoading" loading-text="验证中..."
+                  @click="validateCard()"
                   :disabled="cardNumber === '' || psd === ''">验证预约</van-button>
     </div>
   </div>
@@ -19,12 +22,14 @@ import defaultSettings from '@/settings'
 import { validateCard } from '@/api/cards'
 import tips from '@/components/tip.vue'
 import deliverSteps from '@/components/deliver-steps.vue'
+import customerService from '@/components/customer-service.vue'
 
 @Component({
   name: 'deliver-check',
   components: {
     tips,
-    deliverSteps
+    deliverSteps,
+    customerService
   }
 })
 export default class extends Vue {
@@ -32,18 +37,22 @@ export default class extends Vue {
   tips: string = ''
   cardNumber: string = ''
   psd: string = ''
+  validateLoading: boolean = false
   mounted() {
     this.tips = defaultSettings.tips
   }
 
   validateCard() {
     console.log('validate card')
+    this.validateLoading = true
     validateCard(this.cardNumber, this.psd).then(() => {
-      this.$router.push({ path: '/deliver-info', query: { cardNumber: this.cardNumber, password: this.psd } })
+      this.$router.push({ name: 'deliver-info', params: { cardNumber: this.cardNumber, password: this.psd } })
     }).catch((msg: any) => {
       this.$dialog.alert({
         message: msg
       })
+    }).finally(() => {
+      this.validateLoading = false
     })
   }
 }
