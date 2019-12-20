@@ -52,25 +52,25 @@ export const constantRoutes: RouteConfig[] = [
   },
   {
     path: '/',
-    component: () => import('@/views/home/home.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '@/views/home/home.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/deliver',
     name: 'deliver',
-    component: () => import('@/views/home/deliver.vue'),
+    component: () => import(/* webpackChunkName: "deliver" */ '@/views/home/deliver.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/deliver-info',
     name: 'deliver-info',
-    component: () => import('@/views/home/deliver-info.vue'),
+    component: () => import(/* webpackChunkName: "deliver-info" */ '@/views/home/deliver-info.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
     path: '/finish-deliver',
     name: 'finish-deliver',
-    component: () => import('@/views/home/finish-deliver.vue'),
+    component: () => import(/* webpackChunkName: "finish-deilver" */ '@/views/home/finish-deliver.vue'),
     meta: { hidden: true, showErrorMsg: false, needPerms: false }
   },
   {
@@ -126,7 +126,7 @@ export const asyncRoutes: RouteConfig[] = [
     children: [
       {
         path: 'list',
-        component: () => import(/* webpackChunkName: "example-list" */ '@/views/card/card-list.vue'),
+        component: () => import(/* webpackChunkName: "card-list" */ '@/views/card/card-list.vue'),
         name: 'CardList',
         meta: {
           title: 'cardList',
@@ -135,7 +135,7 @@ export const asyncRoutes: RouteConfig[] = [
       },
       {
         path: 'import',
-        component: () => import('@/views/card/card-import.vue'),
+        component: () => import(/* webpackChunkName: "card-import" */ '@/views/card/card-import.vue'),
         name: 'CardImport',
         meta: {
           title: 'cardImport',
@@ -152,7 +152,7 @@ export const asyncRoutes: RouteConfig[] = [
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history',  // Disabled due to Github Pages doesn't support this, enable this if you need.
+  mode: 'history',
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
