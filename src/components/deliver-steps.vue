@@ -13,6 +13,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   name: 'deliver-steps'
 })
 export default class extends Vue {
-  @Prop({ default: 1 }) private active: number;
+  @Prop({ default: 1 }) private active: number | undefined;
 }
 </script>

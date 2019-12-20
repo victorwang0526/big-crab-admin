@@ -19,7 +19,17 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "vant/lib/button": ["src/components/vant/button"],
+      "vant/lib/popup": ["src/components/vant/popup"],
+      "vant/lib/cell-group": ["src/components/vant/cell-group"],
+      "vant/lib/cell": ["src/components/vant/cell"],
+      "vant/lib/field": ["src/components/vant/field"],
+      "vant/lib/steps": ["src/components/vant/steps"],
+      "vant/lib/step": ["src/components/vant/step"],
+      "vant/lib/datetime-picker": ["src/components/vant/datetime-picker"],
+      "vant/lib/area": ["src/components/vant/area"],
+      "vant/lib/dialog": ["node_modules/vant/types/dialog"]
     },
     "lib": [
       "esnext",

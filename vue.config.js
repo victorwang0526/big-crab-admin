@@ -8,7 +8,7 @@ const mockServerPort = 8081 // TODO: get this variable from setting.ts
 const name = '大闸蟹'
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-typescript-admin-template/' : '/', // TODO: Remember to change this to fit your need
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/', // TODO: Remember to change this to fit your need
   lintOnSave: process.env.NODE_ENV === 'development',
   devServer: {
     port: devServerPort,

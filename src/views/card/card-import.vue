@@ -13,9 +13,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
-import axios from 'axios'
-import { UserModule } from '@/store/modules/user'
-import { importCards } from '@/api/cards';
+import { importCards } from '@/api/cards'
 
 @Component({
   name: 'card-import'
@@ -24,7 +22,8 @@ export default class extends Vue {
   file: any;
 
   handleFileUpload() {
-    this.file = this.$refs.file.files[0]
+    const f: any = this.$refs.file
+    this.file = f.files[0]
   }
 
   importCards() {

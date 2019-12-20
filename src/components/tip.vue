@@ -11,7 +11,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
   name: 'tips'
 })
 export default class extends Vue {
-  @Prop({ default: '' }) private tips: string;
+  @Prop({ default: '' }) private tips: string | undefined;
 }
 </script>
 <style scoped>
